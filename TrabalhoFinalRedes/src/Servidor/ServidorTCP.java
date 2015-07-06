@@ -15,6 +15,11 @@ import java.net.*;
 
 public class ServidorTCP {
     
+    
+    public ServidorTCP(){
+            runServer();
+    }
+    
     private void runServer(){
         try{
             ServerSocket servSocket = new ServerSocket(30001);
