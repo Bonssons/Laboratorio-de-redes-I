@@ -5,12 +5,19 @@
  */
 package trabalhofinalredes;
 
+import Cliente.Arquivo;
+import java.io.File;
+import java.io.FileInputStream;
+import java.util.Date;
+import javax.swing.JFileChooser;
+
 /**
  *
  * @author Alysson
  */
 public class telaCliente extends javax.swing.JFrame {
 
+    private Arquivo arquivo;
     /**
      * Creates new form telaCliente
      */
@@ -47,6 +54,11 @@ public class telaCliente extends javax.swing.JFrame {
         jLabel2.setText("Arquivo:");
 
         jButton1.setText("Selecionar Arquivo");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("IP destino:");
 
@@ -68,6 +80,11 @@ public class telaCliente extends javax.swing.JFrame {
         });
 
         jRadioButton2.setText("TCP");
+        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton2ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Enviar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -84,14 +101,9 @@ public class telaCliente extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(46, 46, 46)
-                                .addComponent(jLabel1))
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel2)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(46, 46, 46)
+                        .addComponent(jLabel1))
+                    .addComponent(jLabel2)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                             .addComponent(jLabel5)
@@ -114,7 +126,7 @@ public class telaCliente extends javax.swing.JFrame {
                                 .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(jButton1))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(80, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -149,6 +161,8 @@ public class telaCliente extends javax.swing.JFrame {
 
     private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
         // TODO add your handling code here:
+        jRadioButton1.setSelected(true);
+        jRadioButton2.setSelected(false);
     }//GEN-LAST:event_jRadioButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -158,6 +172,40 @@ public class telaCliente extends javax.swing.JFrame {
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        FileInputStream fis;
+        try{
+            JFileChooser chooser = new JFileChooser();
+            chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+            chooser.setDialogTitle("Escolha o arquivo");
+            
+            if (chooser.showOpenDialog(this) == JFileChooser.OPEN_DIALOG){
+                File fileSelected = chooser.getSelectedFile();
+                byte[] bFile = new byte[(int) fileSelected.length()];
+                fis = new FileInputStream(fileSelected); fis.read(bFile);
+                fis.close();
+                long kbSize = fileSelected.length() / 1024;
+                jTextField1.setText(fileSelected.getAbsolutePath());
+                
+                arquivo = new Arquivo();
+                arquivo.setConteudo(bFile);
+                arquivo.setDataHoraUpload(new Date());
+                arquivo.setNome(fileSelected.getName());
+                arquivo.setTamanhoKB(kbSize);
+                arquivo.setIpDestino(jTextField2.getText());
+                arquivo.setPortaDestino(jTextField3.getText());
+                arquivo.setDiretorioDestino(jTextField1.getText().trim());
+            }
+        } catch (Exception e) { e.printStackTrace(); }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
+        // TODO add your handling code here:
+        jRadioButton1.setSelected(false);
+        jRadioButton2.setSelected(true);
+    }//GEN-LAST:event_jRadioButton2ActionPerformed
 
     /**
      * @param args the command line arguments
