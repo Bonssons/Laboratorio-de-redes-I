@@ -14,10 +14,9 @@ import java.net.*;
 
 public class ServidorTCP extends Thread {
 
-    private int porta;
+    //private int porta;
 
-    public ServidorTCP(int porta) {
-        this.porta = porta;
+    public ServidorTCP() {
         this.start();
     }
 
