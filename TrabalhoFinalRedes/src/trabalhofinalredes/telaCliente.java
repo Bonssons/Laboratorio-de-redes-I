@@ -190,7 +190,7 @@ public class telaCliente extends javax.swing.JFrame {
         else arquivo.setPortaDestino(jTextField3.getText());
         
         if (jTextField1.getText().isEmpty()) send = false;
-        else arquivo.setDiretorioDestino(jTextField1.getText().trim());
+        else arquivo.setDiretorioDestino(jTextField3.getText().trim());
                 
                 
         if (send){
@@ -199,7 +199,7 @@ public class telaCliente extends javax.swing.JFrame {
             + "Data: " + arquivo.getDataHoraUpload().toString() + "\n"
             + "Tamanho: " + arquivo.getTamanhoKB() + "\n"
             + "IpDestion: " + arquivo.getIpDestino() + "\n"
-            + "Porta Destino: " + arquivo.getPortaDestino() + "\n"
+            + "Porta Destino: 30001\n"
             + "Diretorio Destino: " + arquivo.getDiretorioDestino() + "\n"
             + "Protocolo: " + ((jRadioButton1.isSelected())? "UDP" : "TCP"));
         }else JOptionPane.showMessageDialog(null, "Não é possível enviar.");
