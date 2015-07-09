@@ -23,6 +23,7 @@ public class telaCliente extends javax.swing.JFrame {
      */
     public telaCliente() {
         initComponents();
+        jRadioButton1.setSelected(true);
     }
 
     /**
