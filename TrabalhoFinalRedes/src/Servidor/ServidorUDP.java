@@ -18,11 +18,8 @@ import java.net.DatagramSocket;
  */
 public class ServidorUDP extends Thread {
     
-    
-    private int porta;
-
-    public ServidorUDP(int porta) {
-        this.porta = porta;
+ 
+    public ServidorUDP() {
         this.start();
     }
 
