@@ -30,11 +30,7 @@ public class ClienteUDP {
                 byte[] incomingData = new byte[1024];
                 byte[] bytea = serializarArquivo();
                 
-                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-                ObjectOutputStream os = new ObjectOutputStream(outputStream);
-                os.writeObject(bytea);
-                byte[] data = outputStream.toByteArray();
-                DatagramPacket sendPacket = new DatagramPacket(data, data.length, IPAddress, 30002);
+                DatagramPacket sendPacket = new DatagramPacket(bytea, bytea.length, IPAddress, 30002);
                 ds.send(sendPacket);
             } catch (UnknownHostException e) {
                 e.printStackTrace();

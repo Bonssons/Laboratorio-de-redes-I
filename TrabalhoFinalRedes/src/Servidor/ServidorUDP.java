@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -41,8 +43,11 @@ public class ServidorUDP extends Thread {
                     ds.receive(pacote);
                     
                     byte[] objectAsByte = pacote.getData();
+                    ByteArrayInputStream bais = new ByteArrayInputStream(objectAsByte);
+                    ObjectInputStream ois = new ObjectInputStream(bais);
                     
-                    Arquivo arquivo = (Arquivo) getObjectFromByte(objectAsByte);
+                    Arquivo arquivo = (Arquivo) ois.readObject();
+                    
                     System.out.println("Escrevendo arquivo no diretorio");
                     String dir = arquivo.getDiretorioDestino().endsWith("/")
                         ? arquivo.getDiretorioDestino() + arquivo.getNome()
@@ -56,6 +61,8 @@ public class ServidorUDP extends Thread {
             }
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ServidorUDP.class.getName()).log(Level.SEVERE, null, ex);
         }
     
     }
