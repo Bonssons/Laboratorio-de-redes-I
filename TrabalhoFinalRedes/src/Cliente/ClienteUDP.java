@@ -19,7 +19,7 @@ public class ClienteUDP {
     private String hostName = "localHost";
 
     public ClienteUDP(Arquivo arquivo) {
-        arquivo = this.arquivo;
+        this.arquivo = arquivo;
     }
  
     public void enviarArquivoServidor() {
@@ -47,7 +47,8 @@ public class ClienteUDP {
     private byte[] serializarArquivo() {
         try {
             ByteArrayOutputStream bao = new ByteArrayOutputStream();
-            ObjectOutputStream ous = null;
+            ObjectOutputStream ous;
+            ous = new ObjectOutputStream(bao);
             ous.writeObject(arquivo);
             return bao.toByteArray();
         } catch (IOException e) {

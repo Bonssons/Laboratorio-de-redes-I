@@ -49,7 +49,8 @@ public class ClienteTCP {
     private byte[] serializarArquivo() {
         try {
             ByteArrayOutputStream bao = new ByteArrayOutputStream();
-            ObjectOutputStream ous = null;
+            ObjectOutputStream ous;
+            ous = new ObjectOutputStream(bao);
             ous.writeObject(arquivo);
             return bao.toByteArray();
         } catch (IOException e) {
