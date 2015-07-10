@@ -8,6 +8,8 @@ package trabalhofinalredes;
 import Cliente.Arquivo;
 import Cliente.ClienteTCP;
 import Cliente.ClienteUDP;
+import Servidor.ServidorTCP;
+import Servidor.ServidorUDP;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.Date;
@@ -22,14 +24,20 @@ public class telaCliente extends javax.swing.JFrame {
 
     private Arquivo arquivo;
     private boolean send = false;
+    
+    private ServidorTCP sTCP;
+    private ServidorUDP sUDP;
     /**
      * Creates new form telaCliente
      */
     public telaCliente() {
         initComponents();
-        jRadioButton1.setSelected(true);
+        //jRadioButton1.setSelected(true);
         jTextField1.setEnabled(false);
         arquivo = new Arquivo();
+        
+        sTCP = new ServidorTCP();
+        sUDP = new ServidorUDP();
         
         jTextField2.setText("192.168.0.14");
         jTextField3.setText("/home/rafael/documents");
@@ -96,6 +104,11 @@ public class telaCliente extends javax.swing.JFrame {
         });
 
         jRadioButton2.setText("TCP");
+        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton2ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Enviar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
