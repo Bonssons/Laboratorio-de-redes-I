@@ -6,6 +6,7 @@
 package trabalhofinalredes;
 
 import Cliente.Arquivo;
+import Cliente.ClienteUDP;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.Date;
@@ -27,6 +28,10 @@ public class telaCliente extends javax.swing.JFrame {
         initComponents();
         jRadioButton1.setSelected(true);
         jTextField1.setEnabled(false);
+        arquivo = new Arquivo();
+        
+        jTextField2.setText("192.168.0.14");
+        jTextField3.setText("/home/rafael/documents");
     }
 
     /**
@@ -191,8 +196,14 @@ public class telaCliente extends javax.swing.JFrame {
         
         if (jTextField1.getText().isEmpty()) send = false;
         else arquivo.setDiretorioDestino(jTextField3.getText().trim());
-                
-                
+        
+        if (jRadioButton1.isSelected()){ // UDP
+            ClienteUDP clienteUDP = new ClienteUDP(arquivo);
+            clienteUDP.enviarArquivoServidor();
+        }else{ //TCP
+            
+        }
+        
         if (send){
             JOptionPane.showMessageDialog(null, "arquivo: \n"
             + "Nome: " + arquivo.getNome()+ "\n"
@@ -203,6 +214,7 @@ public class telaCliente extends javax.swing.JFrame {
             + "Diretorio Destino: " + arquivo.getDiretorioDestino() + "\n"
             + "Protocolo: " + ((jRadioButton1.isSelected())? "UDP" : "TCP"));
         }else JOptionPane.showMessageDialog(null, "Não é possível enviar.");
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
