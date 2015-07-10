@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
 public class ClienteUDP {
     
     private Arquivo arquivo;
-    private DatagramSocket socket = null;
+    private DatagramSocket ds = null;
     private String hostName = "localHost";
 
     public ClienteUDP(Arquivo arquivo) {
@@ -25,7 +25,7 @@ public class ClienteUDP {
     public void enviarArquivoServidor() {
         if (validarArquivo()) {
             try {
-                socket = new DatagramSocket();
+                ds = new DatagramSocket();
                 InetAddress IPAddress = InetAddress.getByName(hostName);
                 byte[] incomingData = new byte[1024];
                 byte[] bytea = serializarArquivo();
@@ -34,7 +34,8 @@ public class ClienteUDP {
                 ObjectOutputStream os = new ObjectOutputStream(outputStream);
                 os.writeObject(bytea);
                 byte[] data = outputStream.toByteArray();
-                DatagramPacket sendPacket = new DatagramPacket(data, data.length, IPAddress, 30001);
+                DatagramPacket sendPacket = new DatagramPacket(data, data.length, IPAddress, 30002);
+                ds.send(sendPacket);
             } catch (UnknownHostException e) {
                 e.printStackTrace();
             } catch (IOException e) {

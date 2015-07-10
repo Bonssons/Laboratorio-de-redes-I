@@ -32,15 +32,15 @@ public class telaCliente extends javax.swing.JFrame {
      */
     public telaCliente() {
         initComponents();
-        //jRadioButton1.setSelected(true);
+        jRadioButton1.setSelected(true);
         jTextField1.setEnabled(false);
         arquivo = new Arquivo();
         
         sTCP = new ServidorTCP();
-        //sUDP = new ServidorUDP();
+        sUDP = new ServidorUDP();
         
         jTextField2.setText("192.168.0.14");
-        jTextField3.setText("/home/rafael/documents");
+        jTextField3.setText("/home/rafael/Documents");
     }
 
     /**
@@ -201,23 +201,16 @@ public class telaCliente extends javax.swing.JFrame {
         if (jTextField1.getText().isEmpty()) send = false;
         else arquivo.setDiretorioDestino(jTextField3.getText().trim());
         
-        if (jRadioButton1.isSelected()){ // UDP
-            ClienteUDP clienteUDP = new ClienteUDP(arquivo);
-            clienteUDP.enviarArquivoServidor();
-        }else{ //TCP
-            ClienteTCP clienteTCP = new ClienteTCP(arquivo);
-            clienteTCP.enviarArquivoServidor();
-        }
-        
         if (send){
-            JOptionPane.showMessageDialog(null, "arquivo: \n"
-            + "Nome: " + arquivo.getNome()+ "\n"
-            + "Data: " + arquivo.getDataHoraUpload().toString() + "\n"
-            + "Tamanho: " + arquivo.getTamanhoKB() + "\n"
-            + "IpDestion: " + arquivo.getIpDestino() + "\n"
-            + "Porta Destino: 30001\n"
-            + "Diretorio Destino: " + arquivo.getDiretorioDestino() + "\n"
-            + "Protocolo: " + ((jRadioButton1.isSelected())? "UDP" : "TCP"));
+            if (jRadioButton1.isSelected()){ // UDP
+                ClienteUDP clienteUDP = new ClienteUDP(arquivo);
+                clienteUDP.enviarArquivoServidor();
+            }else{ //TCP
+                ClienteTCP clienteTCP = new ClienteTCP(arquivo);
+                clienteTCP.enviarArquivoServidor();
+            }
+        
+        
         }else JOptionPane.showMessageDialog(null, "Não é possível enviar.");
 
     }//GEN-LAST:event_jButton2ActionPerformed

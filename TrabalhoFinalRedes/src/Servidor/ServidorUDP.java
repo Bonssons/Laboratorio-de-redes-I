@@ -5,6 +5,7 @@
  */
 package Servidor;
 
+import Cliente.Arquivo;
 import java.io.ByteArrayInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -26,23 +27,23 @@ public class ServidorUDP extends Thread {
     @Override
     public void run() {
         try {
-            DatagramSocket ds = new DatagramSocket(30001);
+            DatagramSocket ds = new DatagramSocket(30002);
             
-            System.out.println("Aguardando Conexão . . .");
+            System.out.println("UDP: Aguardando Conexão . . .");
             while (true) {
 
-                DatagramSocket socket = new DatagramSocket(30001);
                 
                 byte[] receiveData = new byte[1024*1024*5];
                 
                 while(true){
                     DatagramPacket pacote = new DatagramPacket(receiveData, receiveData.length);
                     
-                    socket.receive(pacote);
-                    byte[] data = pacote.getData();
+                    ds.receive(pacote);
                     
-                    Arquivo arquivo = (Arquivo) getObjectFromByte(data);
-
+                    byte[] objectAsByte = pacote.getData();
+                    
+                    Arquivo arquivo = (Arquivo) getObjectFromByte(objectAsByte);
+                    System.out.println("Escrevendo arquivo no diretorio");
                     String dir = arquivo.getDiretorioDestino().endsWith("/")
                         ? arquivo.getDiretorioDestino() + arquivo.getNome()
                         : arquivo.getDiretorioDestino() + "/" + arquivo.getNome();
