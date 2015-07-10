@@ -37,7 +37,7 @@ public class telaCliente extends javax.swing.JFrame {
         arquivo = new Arquivo();
         
         sTCP = new ServidorTCP();
-        sUDP = new ServidorUDP();
+        //sUDP = new ServidorUDP();
         
         jTextField2.setText("192.168.0.14");
         jTextField3.setText("/home/rafael/documents");
@@ -205,7 +205,8 @@ public class telaCliente extends javax.swing.JFrame {
             ClienteUDP clienteUDP = new ClienteUDP(arquivo);
             clienteUDP.enviarArquivoServidor();
         }else{ //TCP
-            ClienteTCP clienteTCP = new ClienteTCP(arquivo); 
+            ClienteTCP clienteTCP = new ClienteTCP(arquivo);
+            clienteTCP.enviarArquivoServidor();
         }
         
         if (send){

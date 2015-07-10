@@ -24,10 +24,10 @@ public class ClienteTCP {
 
     public ClienteTCP(Arquivo arquivo) {
         this.arquivo = arquivo;
-        enviarArquivoServidor();
+        
     }
 
-    private void enviarArquivoServidor() {
+    public void enviarArquivoServidor() {
         if (validarArquivo()) {
             try {
                 Socket socket = new Socket(arquivo.getIpDestino(), 30001);

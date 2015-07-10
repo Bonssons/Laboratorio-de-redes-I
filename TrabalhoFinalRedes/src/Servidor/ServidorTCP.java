@@ -11,6 +11,7 @@ package Servidor;
  */
 import java.io.*;
 import java.net.*;
+import Cliente.Arquivo;
 
 public class ServidorTCP extends Thread {
 
@@ -33,7 +34,7 @@ public class ServidorTCP extends Thread {
                 bf.read(objectAsByte);
 
                 Arquivo arquivo = (Arquivo) getObjectFromByte(objectAsByte);
-
+                System.out.println("Escrevendo arquivo no diretorio");
                 String dir = arquivo.getDiretorioDestino().endsWith("/")
                         ? arquivo.getDiretorioDestino() + arquivo.getNome()
                         : arquivo.getDiretorioDestino() + "/" + arquivo.getNome();
