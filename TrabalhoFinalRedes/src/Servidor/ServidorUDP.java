@@ -48,7 +48,7 @@ public class ServidorUDP extends Thread {
                     
                     Arquivo arquivo = (Arquivo) ois.readObject();
                     
-                    System.out.println("Escrevendo arquivo no diretorio");
+                    System.out.println("Escrevendo arquivo no diretorio de ");
                     String dir = arquivo.getDiretorioDestino().endsWith("/")
                         ? arquivo.getDiretorioDestino() + arquivo.getNome()
                         : arquivo.getDiretorioDestino() + "/" + arquivo.getNome();

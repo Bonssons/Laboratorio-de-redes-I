@@ -7,7 +7,6 @@ package Cliente;
 
 import java.io.*;
 import java.net.*;
-import javax.swing.JOptionPane;
 /**
  *
  * @author Alysson e Rafael
@@ -16,7 +15,6 @@ public class ClienteUDP {
     
     private Arquivo arquivo;
     private DatagramSocket ds = null;
-    private String hostName = "localHost";
 
     public ClienteUDP(Arquivo arquivo) {
         this.arquivo = arquivo;
@@ -26,7 +24,7 @@ public class ClienteUDP {
         if (validarArquivo()) {
             try {
                 ds = new DatagramSocket();
-                InetAddress IPAddress = InetAddress.getByName(hostName);
+                InetAddress IPAddress = InetAddress.getByName(arquivo.getIpDestino());
                 byte[] incomingData = new byte[1024];
                 byte[] bytea = serializarArquivo();
                 

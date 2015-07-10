@@ -12,6 +12,7 @@ import Servidor.ServidorTCP;
 import Servidor.ServidorUDP;
 import java.io.File;
 import java.io.FileInputStream;
+import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -192,27 +193,32 @@ public class telaCliente extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         
-        if (jTextField2.getText().isEmpty()) send = false;
-        else arquivo.setIpDestino(jTextField2.getText());
+        if (jTextField1.getText().isEmpty()) send = false;
+        else arquivo.setDiretorioDestino(jTextField3.getText().trim());
         
         if (jTextField3.getText().isEmpty()) send = false;
         else arquivo.setPortaDestino(jTextField3.getText());
         
-        if (jTextField1.getText().isEmpty()) send = false;
-        else arquivo.setDiretorioDestino(jTextField3.getText().trim());
+        if (jTextField2.getText().isEmpty()) send = false;
+        else{
+            if (send){
+                String[] IPs = jTextField2.getText().split(";", 0);
         
-        if (send){
-            if (jRadioButton1.isSelected()){ // UDP
-                ClienteUDP clienteUDP = new ClienteUDP(arquivo);
-                clienteUDP.enviarArquivoServidor();
-            }else{ //TCP
-                ClienteTCP clienteTCP = new ClienteTCP(arquivo);
-                clienteTCP.enviarArquivoServidor();
+                if (send){
+                    for(int i = 0; i < IPs.length; i++){
+                        if (jRadioButton1.isSelected()){ // UDP
+                            arquivo.setIpDestino(IPs[i]);
+                            ClienteUDP clienteUDP = new ClienteUDP(arquivo);
+                            clienteUDP.enviarArquivoServidor();
+                        }else{ //TCP
+                            arquivo.setIpDestino(IPs[i]);
+                            ClienteTCP clienteTCP = new ClienteTCP(arquivo);
+                            clienteTCP.enviarArquivoServidor();
+                        }
+                    }
+                }else JOptionPane.showMessageDialog(null, "Não é possível enviar.");
             }
-        
-        
-        }else JOptionPane.showMessageDialog(null, "Não é possível enviar.");
-
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
